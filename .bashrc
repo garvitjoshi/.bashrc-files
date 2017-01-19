@@ -1,4 +1,4 @@
-https://github.com/garvitjoshi/.bashrc-files.git
+#https://github.com/garvitjoshi/.bashrc-files.git
 # ~/.bashrc: executed by bash(1) for non-login shells.
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
@@ -15,6 +15,7 @@ esac
 
 alias wsb='cd /var/www/html/wholesalebox'
 alias h='cd ~'
+alias ..='cd ..'
 
 alias gpull='git pull origin'
 alias gpush='git push origin'

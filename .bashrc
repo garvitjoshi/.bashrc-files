@@ -1,4 +1,4 @@
-#!/bin/bash
+	#!/bin/bash
 iatest=$(expr index "$-" i)
 
 #######################################################
@@ -129,7 +129,7 @@ alias ....='cd ../../..'
 alias .....='cd ../../../..'
 
 # cd into the old directory
-alias bd='cd "$OLDPWD"'
+alias old='cd "$OLDPWD"'
 
 # Remove a directory and all files
 alias rmd='/bin/rm  --recursive --force --verbose '
@@ -158,13 +158,25 @@ alias 666='chmod -R 666'
 alias 755='chmod -R 755'
 alias 777='chmod -R 777'
 
+# Custom Changes
+alias wsb='cd /var/www/html/wholesalebox'
+alias h='cd ~'
+alias ..='cd ..'
+alias gt='cd /var/www/html/garvit'
+alias vfarms='cd /var/www/html/garvit/veggifarms'
+alias c='clear'
+alias ss='sudo service'
+alias brc='sudo gedit /home/gt/.bashrc'
+
 # alias for git
 alias gpull='git pull origin'
 alias gpush='git push origin'
 alias gs='git status'
 alias ga='git add'
 alias gc='git commit -m'
+alias gb='git branch'
 alias gct='git checkout'
+
 
 # Search command line history
 alias his="history"
@@ -586,6 +598,16 @@ trim()
 #######################################################
 
 alias cpu="grep 'cpu ' /proc/stat | awk '{usage=(\$2+\$4)*100/(\$2+\$4+\$5)} END {print usage}' | awk '{printf(\"%.1f\n\", \$1)}'"
+
+function git-branch-name {         
+	git symbolic-ref HEAD 2>/dev/null | cut -d"/" -f 3-8
+} 
+
+function git-branch-prompt {
+	local branch=`git-branch-name`
+	if [ $branch ]; then printf " [%s]" $branch; fi
+} 
+
 function __setprompt
 {
 	local LAST_COMMAND=$? # Must come first!
@@ -684,6 +706,9 @@ function __setprompt
 	# Number of files
 	PS1+="\[${GREEN}\]\$(/bin/ls -A -1 | /usr/bin/wc -l)\[${DARKGRAY}\])"
 
+	# Git Branch Name
+	PS1+="\[${CYAN}\]\$(git-branch-prompt)\[\033[0m\]\[${CYAN}\]"
+
 	# Skip to the next line
 	PS1+="\n"
 
@@ -702,6 +727,7 @@ function __setprompt
 	# PS4 is used for tracing a script in debug mode
 	PS4='\[${DARKGRAY}\]+\[${NOCOLOR}\] '
 }
+
 PROMPT_COMMAND='__setprompt'
 
 
